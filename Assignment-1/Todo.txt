@@ -1,0 +1,5 @@
+//Known issues
+Doesn't allow negative numbers.
+Stops divide by zero but doesn't show any error.
+Design not responsive.
+No comments.

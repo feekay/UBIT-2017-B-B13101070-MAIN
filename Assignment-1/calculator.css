@@ -1,0 +1,80 @@
+body{
+    color: rgb(68, 68, 68);
+    /*ffbd00
+    a800ff
+    */
+    background-color: #00ffc9;
+    padding-top: 5%;
+    padding-left: 38%;
+}
+
+.main{
+    background-color: white;
+    border-style:solid;
+    border-width: 2px;
+    border-color: #5b3178;
+    border-radius: 4px;
+    float:left;
+    min-height:100px;
+    width:auto;
+    padding: 4px;
+    padding-right:10px;
+    padding-left:10px;
+}
+.button{
+    background-color: rgb(222, 222, 222);
+    margin: 5px;
+    padding: 10px;
+    width: 100px;
+    float: left;
+    text-align:center;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+    transition: all 200ms ease-out;
+    max-width: 40px;
+    min-height: 40px;
+}
+.row {
+  width: 100%;
+  margin: 0 auto;
+  display:block;
+}
+
+.opButton{
+    background-color: rgba(0, 165, 255, 0.66);
+}
+.valueButton{
+    
+    
+}
+.answerButton{
+    background-color: rgb(0, 138, 255);
+}
+div:nth-child(4n+1){
+    clear:left;
+}
+.answerBox{
+    max-width: 270px;
+    min-width: 200px;
+    min-height: 60px;
+    margin: 5px;
+    margin-top:15px;
+    /*
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-left-color:blue;*/
+    background-color: rgb(250, 250, 250);;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+/*    transition: all 200ms ease-out;*/
+    
+}
+.upper{
+    background-color: inherit;
+    font-size: 15px;
+    padding-left: 5px; 
+}
+.lower{
+    background-color: inherit;
+    font-size:25px;
+	/* align-content: flex-start; */
+	text-align: -moz-right;
+}

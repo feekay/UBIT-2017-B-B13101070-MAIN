@@ -1,0 +1,207 @@
+<html>
+    <head>
+        <title>Calculator</title>
+        <script src="./calculator.js"></script>
+        <link type='text/css' href="./calculator.css" rel="stylesheet"></link>
+    </head>
+    <body>
+    
+        <div class=main>
+        <div class="answerBox">
+            <div class="upper" id="expression">A</div>
+            <div class="lower" id="answer">baaaa</div>
+        </div>
+
+        <div>
+            <div class="button btn-left valueButton" button-value="1">1</div>
+            <div class="button btn-center valueButton" button-value="2">2</div>
+            <div class="button btn-right valueButton" button-value="3">3</div>
+            <div class="button opButton" id="addButton" onClick="performOperation(add)">+</div>
+
+            <div class="button btn-left valueButton" button-value="4">4</div>
+            <div class="button btn-center valueButton" button-value="5">5</div>
+            <div class="button btn-right valueButton" button-value="6">6</div>
+            <div class="button opButton" id="subButton" onClick="performOperation(sub)">-</div>
+
+            <div class="button valueButton" button-value="7">7</div>
+            <div class="button valueButton" button-value="8">8</div>            
+            <div class="button valueButton" button-value="9">9</div>
+            <div class="button opButton" id="multiplyButton" onClick="performOperation(multiply)">*</div>
+
+            <div class="button valueButton" button-value=".">.</div>
+            <div class="button valueButton" button-value="0">0</div>
+            <div class="button answerButton" id="resultButton" onClick="fin_result()">=</div>
+            <div class="button opButton" id="divideButton" onClick="performOperation(divide)">/</div>
+        </div>
+        </div>
+        <div style="clear: left">
+            <h1>Muhammad Faiq</h1>
+            <h3>(B13101070)</h3>
+            <h2>A Simple Calculator</h2>
+        </div>
+        <script>
+            var calculator = new Calculator();
+            var expression = "";
+            var number="";
+//----------------------------------------------------------------------------//
+           
+            //View//
+            function setValue(id, value){
+                document.getElementById(id).textContent=value;
+            };
+
+//----------------------------------------------------------------------------//            
+                        
+            function getValue(id){
+                return document.getElementById(id).textContent;
+            };
+//----------------------------------------------------------------------------//            
+                        
+            function updateValue(id, value){
+                var val = getValue(id);
+                val+=value;
+                setValue(id, val);
+            };
+
+//----------------------------------------------------------------------------//
+            function initialize(){
+                setValue("answer",number);
+                setValue("expression", expression);
+            };
+            
+//----------------------------------------------------------------------------//
+            function getExpression(){
+                return getValue("expression");
+            };
+//----------------------------------------------------------------------------//
+            function setExpression(value){
+                setValue("expression", value);
+            };
+
+//----------------------------------------------------------------------------//
+            function updateExpression(value){
+                updateValue("expression", value);
+            };
+
+//----------------------------------------------------------------------------//
+            function getAnswer(){
+                return getValue("answer");
+            };
+//----------------------------------------------------------------------------//
+            function setAnswer(value){
+                setValue("answer", value);
+            };
+//----------------------------------------------------------------------------//
+            function updateAnswer(value){
+                updateValue("answer", value);
+            };
+
+//----------------------------------------------------------------------------//
+            //Controller//
+            //Mouse event handlers
+            function input(value){
+                number+= value;
+                setAnswer(number);
+                updateExpression(value);
+            };
+//----------------------------------------------------------------------------//
+            function clear(){
+                setExpression("");
+            }
+
+//----------------------------------------------------------------------------//
+            function getNumber(){
+                if(number){
+                    return Number(number);
+                }else{
+                    return NaN;
+                }
+            }
+//----------------------------------------------------------------------------//
+            function clearNumber(){
+                number="";
+                setAnswer("0");
+            }
+//----------------------------------------------------------------------------//
+            function performOperation(operation){
+                var val=getNumber();
+                //Pass operation arguments
+                if(!Number.isNaN(val)){
+                    operation(val);
+                    clearNumber();
+                    updateExpression(calculator.operation);
+                }
+            }
+            
+//----------------------------------------------------------------------------//
+            function add(value){
+                calculator.add(value);
+            };
+//----------------------------------------------------------------------------//
+            function sub(value){
+                calculator.sub(value);
+            };
+//----------------------------------------------------------------------------//
+            function multiply(value){
+                calculator.multiply(value);
+            };
+//----------------------------------------------------------------------------//
+            function divide(value){
+                if(value!=0){
+                    calculator.divide(value);
+                }
+            };
+//----------------------------------------------------------------------------//
+            function result(){
+                var val=getNumber();
+                if(!isNaN(val)){
+                    return calculator.result(val);
+                }
+            };
+//----------------------------------------------------------------------------//
+            //Listening mouse events on value Buttons
+            buttons=document.querySelectorAll(".valueButton");
+            Array.forEach(buttons, function(button){
+                button.addEventListener("click", function(event){
+                    var value=this.getAttribute("button-value");
+                    input(value);
+                });
+            });
+//----------------------------------------------------------------------------//            
+            function fin_result(){
+                expression = ""+result();
+                setExpression(Number(expression));
+                setAnswer(Number(expression));
+                number=expression;
+                calculator.answer=0;
+            }
+//----------------------------------------------------------------------------//
+            //Listen for keyboard events
+            addEventListener("keydown", function(event){
+
+                if((event.keyCode>=48 && event.keyCode<=57) && !event.shiftKey){
+                    //console.log(event.keyCode);
+                    input(String.fromCharCode(event.keyCode));
+                }else if(event.shiftKey){
+                    switch(event.keyCode){
+                        case 56:
+                            performOperation(multiply);
+                            break;
+                        case 61:
+                            performOperation(add);
+                    }
+                }else if(event.keyCode==191){
+                    performOperation(divide);
+                    event.stopPropagation();
+                }else if(event.keyCode== 173){
+                    performOperation(sub);
+                }else if(event.keyCode== 61){
+                    fin_result();
+                }
+            });
+//----------------------------------------------------------------------------//
+        initialize();
+        </script>
+    </body>
+    
+</html>
