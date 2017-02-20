@@ -1,0 +1,213 @@
+<html>
+<head>
+    <title>CRUD Assignment</title>
+    <style>
+        table{
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+.table_block{
+    display: inline;
+    float:right;
+ 
+}
+.form_block{
+    display: inline;
+    float:left;
+ 
+}
+table td {
+    width: 70px;
+    height: 40px;
+    border: none;
+    border-right: 1px solid #000;
+    padding: 0 0 0 10px;
+    border-bottom:1px solid #000;
+    font-size:13px;
+}
+
+tr:first-child td {
+    font-size: 15px;
+    font-weight: bold;
+}
+    </style>
+</head>
+<body>
+    <div class="form_block">
+        <form id ="form" onsubmit="return onSubmit()">
+        <!--Inputs-->
+            <input id='id' name="id" type=hidden value=-1>
+            <label>Name: </label>
+            <input id='name' name="name" required></input><br/>
+            <label>Email: </label>
+            <input id='email' name="email" type="email" required></input><br/>
+            <label>Gender: </label>
+            <input id='gender' name="gender" required></input><br/>
+            <label>Class: </label>
+            <input id='class' name="class" required></input><br/>
+            <input type=submit value="submit"><br/>
+        </form>
+    </div>
+    <div class="table_block">
+    <table>
+        <th>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Gender</td>
+            <td>Class</td>
+        </th>
+        <tbody id="contact_table">
+        </tbody>
+    </table>
+    </div>
+<script>
+    //Use MVC to update table
+    //Make a data model that updates view on change view is a listener.
+
+//----------------------------------------------------------------------------//
+//                  MODEL
+//----------------------------------------------------------------------------//
+    function Model(){
+        this.elements=[];
+        this.size=0;
+        this.counter=0;
+    };
+    Model.prototype.get= function(id){
+        return this.elements[id];
+    }
+
+    Model.prototype.hasId= function(id){
+        /*if(id===undefined){
+            return false;
+        }*/
+        for(var i=0; i< this.elements.length; i++){
+            console.log(this.elements[i].id);
+            if(this.elements[i].id == id){
+                return true;
+            }
+        } 
+        return false;
+    }
+    Model.prototype.update= function(id, object){
+        object.id= id;
+        for(var i=0; i< this.elements.length; i++){
+            if(this.elements[i].id == id){
+                //TODO Test
+                this.elements.splice(i,1);
+                break;
+            }
+        }
+        this.elements.push(object);
+    }
+    
+    Model.prototype.add= function(object){
+        object.id= this.counter;
+        this.elements.push(object);
+
+        this.size++;
+        this.counter++;
+    }
+    
+    Model.prototype.remove = function(id){
+        for(var i=0; i< this.elements.length; i++){
+            if(this.elements[i].id == id){
+                //TODO Test
+                this.elements.splice(i,1);
+                break;
+            }
+        }
+    } 
+//----------------------------------------------------------------------------//
+//                  VIEW
+//----------------------------------------------------------------------------//
+    model= new Model();
+    function updateView(){
+        var table = document.getElementById("contact_table");
+        table.innerHTML='';
+        for(var i =0; i< model.size; i++){
+            var x = model.get(i);
+            console.log(x);
+            var row = table.insertRow(i);
+           /*for(var j=0; j<Object.keys(x).length; j++){
+                var cell = row.insertCell(j);
+                cell.innerHTML= x[Object.keys(x)[j]];
+            }
+            */
+    
+            row.insertCell(0);
+            var cell0 = row.insertCell(1);
+            cell0.innerHTML = x['name'];
+            var cell1 = row.insertCell(2);
+            cell1.innerHTML = x['email'];
+            var cell2 = row.insertCell(3);
+            cell2.innerHTML = x['gender'];
+            var cell3 = row.insertCell(4);
+            cell3.innerHTML = x['class_'];
+            var cell4 =row.insertCell(5);
+             cell4.innerHTML= "<button class = \"edit\" val=" +x['id']+">Edit</button>";
+            var cell5 =row.insertCell(6);
+            cell5.innerHTML= "<button class = \"delete\" val=" + x['id']+">Delete</button>";
+        }
+    }
+
+    addEventListener("click", function(){
+            //Add listner on class edit
+            
+            /*if(){
+                var button = document.getElements;
+                initialize_form(model.get(button.getAttribute('val')));
+            }
+
+            //Add listner on class delete
+            else if(){
+                var button = document.getElements;
+                model.remove(button.getAttribute('val'));
+                updateView();
+            }*/
+    });
+
+    function valid(){
+        return true;
+    }
+    function getValidateData(){
+        //Read Data from form
+        var id= document.getElementById('id').setAttribute('value', -1);
+        var name=document.getElementById('name').value;
+        var mail=document.getElementById('email').value;
+        var gender=document.getElementById('gender').value;
+        var class_=document.getElementById('class').value;
+
+        return {'id':id , 'name': name,'email': mail, 'gender':gender, 'class': class_,};
+    }
+    
+    function initialize_form(object){
+        document.getElementById('id');
+        if(object === undefined){
+            document.getElementById('id').setAttribute('value', -1);
+            document.getElementById('name').value= "";
+            document.getElementById('email').value= "";
+            document.getElementById('gender').value= "";
+            document.getElementById('class').value= "";
+        }
+    }
+
+    function onSubmit(){
+        if(valid()){
+            var object = getValidateData();
+            if(model.hasId(object.id)){
+                model.update(object.id, object);
+            }
+            else{
+                model.add(object);
+            }
+            updateView();
+        }
+        initialize_form();
+        return false;
+    }
+    initialize_form();
+
+</script>
+</body>
+</html>
