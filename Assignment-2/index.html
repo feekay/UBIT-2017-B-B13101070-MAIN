@@ -45,7 +45,7 @@ tr:first-child td {
             <label>Gender: </label>
             <input id='gender' name="gender" required></input><br/>
             <label>Class: </label>
-            <input id='class' name="class" required></input><br/>
+            <input id='cls' name="class" required></input><br/>
             <input type=submit value="submit"><br/>
         </form>
     </div>
@@ -114,6 +114,7 @@ tr:first-child td {
             if(this.elements[i].id == id){
                 //TODO Test
                 this.elements.splice(i,1);
+                this.size--;
                 break;
             }
         }
@@ -151,20 +152,24 @@ tr:first-child td {
         }
     }
 
-    addEventListener("click", function(){
+    document.body.addEventListener("click", function(evt){
             //Add listner on class edit
             
-            /*if(){
-                var button = document.getElements;
-                initialize_form(model.get(button.getAttribute('val')));
+            if(evt.target.classList.contains("edit")){
+               
+               var value = Number(evt.target.getAttribute('val'));
+               console.log("Edit");
+               
+               initialize_form(model.get(value));
             }
-
-            //Add listner on class delete
-            else if(){
-                var button = document.getElements;
-                model.remove(button.getAttribute('val'));
-                updateView();
-            }*/
+            if(evt.target.classList.contains("delete")){
+                
+               var value = Number(evt.target.getAttribute('val'));
+               console.log("DElete");
+               model.remove(value);
+               updateView();
+               //initialize_form(model.get(value));
+            }
     });
 
     function valid(){
@@ -172,23 +177,32 @@ tr:first-child td {
     }
     function getValidateData(){
         //Read Data from form
-        var id= document.getElementById('id').setAttribute('value', -1);
+        var id= document.getElementById('id').getAttribute('value');
         var name=document.getElementById('name').value;
         var mail=document.getElementById('email').value;
         var gender=document.getElementById('gender').value;
-        var class_=document.getElementById('class').value;
+        var class_=document.getElementById('cls').value;
 
-        return {'id':id , 'name': name,'email': mail, 'gender':gender, 'class': class_,};
+        return {'id':id , 'name': name,'email': mail, 'gender':gender, 'class_': class_ };
     }
     
     function initialize_form(object){
-        document.getElementById('id');
+      //  document.getElementById('id');
         if(object === undefined){
+
             document.getElementById('id').setAttribute('value', -1);
             document.getElementById('name').value= "";
             document.getElementById('email').value= "";
             document.getElementById('gender').value= "";
-            document.getElementById('class').value= "";
+            document.getElementById('cls').value= "";
+        }
+        else{
+          //  console.log("aa");
+            document.getElementById('id').setAttribute('value', object['id']);
+            document.getElementById('name').value= object['name'];
+            document.getElementById('email').value= object['email'];
+            document.getElementById('gender').value= object['gender'];
+            document.getElementById('cls').value= object['class_'];
         }
     }
 
