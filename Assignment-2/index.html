@@ -51,12 +51,14 @@ tr:first-child td {
     </div>
     <div class="table_block">
     <table>
-        <th>
-            <td>Name</td>
-            <td>Email</td>
-            <td>Gender</td>
-            <td>Class</td>
-        </th>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Gender</th>
+            <th>Class</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
         <tbody id="contact_table">
         </tbody>
     </table>
@@ -74,6 +76,7 @@ tr:first-child td {
         this.counter=0;
     };
     Model.prototype.get= function(id){
+        //BUG HERE
         return this.elements[id];
     }
 
@@ -82,7 +85,7 @@ tr:first-child td {
             return false;
         }*/
         for(var i=0; i< this.elements.length; i++){
-            console.log(this.elements[i].id);
+          //  console.log(this.elements[i].id);
             if(this.elements[i].id == id){
                 return true;
             }
@@ -90,7 +93,8 @@ tr:first-child td {
         return false;
     }
     Model.prototype.update= function(id, object){
-        object.id= id;
+        console.log(id);
+        object.id= Number(id);
         for(var i=0; i< this.elements.length; i++){
             if(this.elements[i].id == id){
                 //TODO Test
@@ -100,7 +104,7 @@ tr:first-child td {
         }
         this.elements.push(object);
     }
-    
+
     Model.prototype.add= function(object){
         object.id= this.counter;
         this.elements.push(object);
@@ -108,7 +112,7 @@ tr:first-child td {
         this.size++;
         this.counter++;
     }
-    
+
     Model.prototype.remove = function(id){
         for(var i=0; i< this.elements.length; i++){
             if(this.elements[i].id == id){
@@ -118,7 +122,7 @@ tr:first-child td {
                 break;
             }
         }
-    } 
+    }
 //----------------------------------------------------------------------------//
 //                  VIEW
 //----------------------------------------------------------------------------//
@@ -128,26 +132,24 @@ tr:first-child td {
         table.innerHTML='';
         for(var i =0; i< model.size; i++){
             var x = model.get(i);
-            console.log(x);
+          //  console.log(x);
             var row = table.insertRow(i);
            /*for(var j=0; j<Object.keys(x).length; j++){
                 var cell = row.insertCell(j);
                 cell.innerHTML= x[Object.keys(x)[j]];
             }
             */
-    
-            row.insertCell(0);
-            var cell0 = row.insertCell(1);
+            var cell0 = row.insertCell(0);
             cell0.innerHTML = x['name'];
-            var cell1 = row.insertCell(2);
+            var cell1 = row.insertCell(1);
             cell1.innerHTML = x['email'];
-            var cell2 = row.insertCell(3);
+            var cell2 = row.insertCell(2);
             cell2.innerHTML = x['gender'];
-            var cell3 = row.insertCell(4);
+            var cell3 = row.insertCell(3);
             cell3.innerHTML = x['class_'];
-            var cell4 =row.insertCell(5);
+            var cell4 =row.insertCell(4);
              cell4.innerHTML= "<button class = \"edit\" val=" +x['id']+">Edit</button>";
-            var cell5 =row.insertCell(6);
+            var cell5 =row.insertCell(5);
             cell5.innerHTML= "<button class = \"delete\" val=" + x['id']+">Delete</button>";
         }
     }
