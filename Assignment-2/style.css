@@ -1,0 +1,94 @@
+#wrapper {
+        display: table;
+        margin: 0 auto;
+        background: #e2dbdb;
+        padding: 20px;
+    }
+
+    .form_block {
+        float: left;
+        border-right: 1px solid #aaa;
+        width: 250px;
+        margin: 0 25px 0 0;
+        padding: 0 15px 0 0;
+    }
+
+    input {
+        height: 25px;
+        line-height: 25px;
+        width: 240px;
+        border-radius: 2px;
+        border: 1px solid #aaa;
+        padding: 0 0 0 10px;
+    }
+
+    input.submit {
+        width: 80px;
+        background: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+        padding: 0;
+    }
+
+    .row {
+        margin: 0 0 10px;
+    }
+
+    label {
+        width: 100px;
+        display: inline-block;
+    }
+
+    .table_block {
+        float: right;
+    }
+
+    table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    tbody {
+        border-bottom: 1px solid #000;
+    }
+
+    .table_block {
+        display: inline;
+        float: right;
+        width: 400px;
+    }
+    table td {
+        width: 70px;
+        height: 40px;
+        border: none;
+        border-right: 1px solid #000;
+        padding: 0 0 0 10px;
+        border-bottom:1px solid #000;
+        font-size:13px;
+    }
+    tr:first-child th {
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    td:last-child {
+        border-right: 0;
+    }
+
+    tr:nth-child(2n+1) {
+        background: #b9b5b5;
+    }
+
+    tr:nth-child(2n) {
+        background: #ffffff;
+    }
+
+    tbody:first-child tr {
+        background: #fff;
+    }
+
+    tbody:first-child {
+        background: #fff;
+        line-height: 30px;
+    }
+
