@@ -60,16 +60,16 @@
         this.counter=0;
     };
     Model.prototype.get= function(id){
-        //BUG HERE
-        return this.elements[id];
+        for(var i=0; i< this.elements.length; i++){
+            if(this.elements[i].id == id){
+                return this.elements[i];
+            }
+        }
+        return undefined;
     }
 
     Model.prototype.hasId= function(id){
-        /*if(id===undefined){
-            return false;
-        }*/
         for(var i=0; i< this.elements.length; i++){
-          //  console.log(this.elements[i].id);
             if(this.elements[i].id == id){
                 return true;
             }
@@ -81,7 +81,6 @@
         object.id= Number(id);
         for(var i=0; i< this.elements.length; i++){
             if(this.elements[i].id == id){
-                //TODO Test
                 this.elements.splice(i,1);
                 break;
             }
@@ -92,7 +91,6 @@
     Model.prototype.add= function(object){
         object.id= this.counter;
         this.elements.push(object);
-
         this.size++;
         this.counter++;
     }
@@ -100,7 +98,6 @@
     Model.prototype.remove = function(id){
         for(var i=0; i< this.elements.length; i++){
             if(this.elements[i].id == id){
-                //TODO Test
                 this.elements.splice(i,1);
                 this.size--;
                 break;
@@ -116,13 +113,7 @@
         table.innerHTML='';
         for(var i =0; i< model.size; i++){
             var x = model.get(i);
-          //  console.log(x);
             var row = table.insertRow(i);
-           /*for(var j=0; j<Object.keys(x).length; j++){
-                var cell = row.insertCell(j);
-                cell.innerHTML= x[Object.keys(x)[j]];
-            }
-            */
             var cell0 = row.insertCell(0);
             cell0.innerHTML = x['name'];
             var cell1 = row.insertCell(1);
@@ -142,14 +133,10 @@
             //Add listner on class edit
             
             if(evt.target.classList.contains("edit")){
-               
-               var value = Number(evt.target.getAttribute('val'));
-               console.log("Edit");
-               
+               var value = Number(evt.target.getAttribute('val'));    
                initialize_form(model.get(value));
             }
             if(evt.target.classList.contains("delete")){
-                
                var value = Number(evt.target.getAttribute('val'));
                console.log("DElete");
                model.remove(value);
@@ -175,7 +162,6 @@
     function initialize_form(object){
       //  document.getElementById('id');
         if(object === undefined){
-
             document.getElementById('id').setAttribute('value', -1);
             document.getElementById('name').value= "";
             document.getElementById('email').value= "";
@@ -183,7 +169,6 @@
             document.getElementById('cls').value= "";
         }
         else{
-          //  console.log("aa");
             document.getElementById('id').setAttribute('value', object['id']);
             document.getElementById('name').value= object['name'];
             document.getElementById('email').value= object['email'];
