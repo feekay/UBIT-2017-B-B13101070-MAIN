@@ -1,7 +1,10 @@
+body{
+    background-color:rgb(23, 48, 81);
+}
 #wrapper {
         display: table;
         margin: 0 auto;
-        background: #e2dbdb;
+        background: #1481bd;
         padding: 20px;
     }
 
@@ -28,6 +31,7 @@
         border-radius: 4px;
         cursor: pointer;
         padding: 0;
+        height: 30px;
     }
 
     .row {
@@ -75,13 +79,7 @@
         border-right: 0;
     }
 
-    tr:nth-child(2n+1) {
-        background: #b9b5b5;
-    }
 
-    tr:nth-child(2n) {
-        background: #ffffff;
-    }
 
     tbody:first-child tr {
         background: #fff;
@@ -91,4 +89,24 @@
         background: #fff;
         line-height: 30px;
     }
-
+    
+    button{
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        height:auto;
+        width:auto; 
+    }
+    button:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    }
+    .edit{
+        background-color: #008CBA;
+    }
+    .delete{
+        background-color: #f44336;
+    }
